@@ -31,3 +31,6 @@ foreach(testSrc ${TEST_SRCS})
 endforeach(testSrc)
 
 add_executable(tree_walk tree/tree_walk.cpp)
+add_executable(space_search state_space/space_search.cpp)
+add_executable(print_graph tree/print_graph.cpp)
+add_executable(find_exact_difference tree/find_exact_difference.cpp)

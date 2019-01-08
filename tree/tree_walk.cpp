@@ -106,6 +106,37 @@ void inorder(node * n, function<void(const node *)> action) {
 	}
 }
 
+class InorderTraverser {
+public:
+	InorderTraverser(node * start) : _current_pointer(start) {};
+
+	bool step() {
+		while (_current_pointer || !path.empty()) {
+			while (_current_pointer) {
+				path.push(_current_pointer);
+				_current_pointer = _current_pointer->left;
+			}
+
+			if (!path.empty()) {
+				node * &top = path.top();
+				_current = top;
+				_current_pointer = top->right;
+				path.pop();
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	const node * current() const { return _current; }
+private:
+	node * _current;
+	node * _current_pointer;
+	bool is_started = false;
+	stack<node *> path;
+};
+
 void destroy(node * n) {
 	if (!n) return;
 	destroy(n->left);
@@ -131,10 +162,14 @@ int main() {
 		cout << n->value << endl;
 	};
 
-	postorder_recursive(tree, printNode);
-	postorder(tree, printNode);
+	inorder_recursive(tree, printNode);
+
+	InorderTraverser traverser(tree);
+	while (traverser.step()) {
+		printNode(traverser.current());
+	}
+
 	destroy(tree);
 
-	char c;
-	cin >> c;
+	return 0;
 }
