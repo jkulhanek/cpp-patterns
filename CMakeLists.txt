@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.4)
 project(cpp-patterns)
 
 enable_testing()
-#find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+#find_package(Boost COMPONENTS unit_test_framework REQUIRED) 
 #include_directories (${Boost_INCLUDE_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
@@ -29,3 +29,5 @@ foreach(testSrc ${TEST_SRCS})
                 WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin 
                 COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/bin/${testName} )
 endforeach(testSrc)
+
+add_executable(tree_walk tree/tree_walk.cpp)
