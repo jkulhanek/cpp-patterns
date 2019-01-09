@@ -2,7 +2,8 @@
 #include <iomanip>
 #include "maze.h"
 
-void print(const maze & m, const int space, std::ostream & cout) {
+template <class T>
+void print(const maze<T> & m, const int space, std::ostream & cout) {
 	for (int i = 0; i < m.height; ++i) {
 		for (int j = 0; j < m.width - 1; ++j) {
 			cout << std::setw(space) << m.data[i * m.width + j] << " ";
