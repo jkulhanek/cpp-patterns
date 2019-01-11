@@ -30,6 +30,7 @@ foreach(testSrc ${TEST_SRCS})
                 COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/bin/${testName} )
 endforeach(testSrc)
 
+add_executable(sorting sort/sorting.cpp)
 add_executable(tree_walk tree/tree_walk.cpp)
 add_executable(space_search state_space/space_search.cpp)
 add_executable(print_graph tree/print_graph.cpp)
