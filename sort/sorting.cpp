@@ -54,6 +54,35 @@ void insertsort(vector<T> & a, const function<bool(const T &, const T &)> &  com
 }
 
 template <class T>
+void heapsort_repairtop(vector<T> & a, int index, int size, const function<bool(const T &, const T &)> &  comp) {
+	while (index < size) {
+		int oldIndex = index;
+		if (index * 2 + 1 < size && !comp(a[index * 2 + 1], a[index]) && (index * 2 + 2 >= size || !comp(a[index * 2 + 1], a[index * 2 + 2]))) index = index * 2 + 1;
+		else if (index * 2 + 2 < size && !comp(a[index * 2 + 2], a[index])) index = index * 2 + 2;
+
+		if (oldIndex == index) {
+			break;
+		}
+		else {
+			swap(a[oldIndex], a[index]);
+		}
+	}
+}
+
+template <class T>
+void heapsort(vector<T> & a, const function<bool(const T &, const T &)> &  comp) {
+	int size = a.size();
+	for (int j = size  / 2; j >= 0; --j) {
+		heapsort_repairtop(a, j, size, comp);
+	}
+
+	for (int j = a.size() - 1; j >= 0; --j) {
+		swap(a[0], a[j]);
+		heapsort_repairtop(a, 0, j, comp);
+	}
+}
+
+template <class T>
 int partition(vector<T> & a, int lo, int hi, const function<bool(const T &, const T &)> &  comp) {
 	int i = lo, j = hi + 1;
 	T v = a[lo];
@@ -154,6 +183,15 @@ int main() {
 	copy(data.begin(), data.end(), unsorted.begin());
 	cout << "Testing insert sort" << endl;
 	insertsort<string>(unsorted, comp);
+	for_each(unsorted.begin(), unsorted.end(), [](string & c) {
+		cout << c << ", ";
+	});
+	cout << endl;
+
+
+	copy(data.begin(), data.end(), unsorted.begin());
+	cout << "Testing heapsort" << endl;
+	heapsort<string>(unsorted, comp);
 	for_each(unsorted.begin(), unsorted.end(), [](string & c) {
 		cout << c << ", ";
 	});
